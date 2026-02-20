@@ -6,6 +6,10 @@ on:
     branches:
       - main
 
+  push:
+    branches:
+      - main       
+
 jobs:
   buildAndTest:
     name: CI Pipeline
@@ -71,7 +75,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: PLACEHOLDER-FOR-YOUR-ECR-REPOSITORY
-          IMAGE_TAG: PLACEHOLDER-FOR-YOUR-APP-IMAGE-TAG
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
@@ -80,11 +84,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: push
     env:
-      CONTAINER_REGISTRY_URL: "placeholder-registry-url"
-      CONTAINER_REPOSITORY_NAME: "placeholder-repo-name"
-      S3_DEPLOY_BUCKET: "placeholder-deploy-bucket"
-      ELASTIC_BEANSTALK_APP_NAME: "placeholder-app-name"
-      ELASTIC_BEANSTALK_ENV_NAME: "placeholder-env-name"
+      CONTAINER_REGISTRY_URL: "664047078509.dkr.ecr.eu-west-2.amazonaws.com/authentic-task-listing-app"
+      CONTAINER_REPOSITORY_NAME: "authentic-task-listing-app"
+      S3_DEPLOY_BUCKET: "authentic-s3-bucket-elastic-beanstalk-hg-ta-kf"
+      ELASTIC_BEANSTALK_APP_NAME: "authentic-task-listing-app"
+      ELASTIC_BEANSTALK_ENV_NAME: "authentic-task-listing-app-environment"
+      
 
     steps:
       - name: Checkout code
