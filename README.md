@@ -5,7 +5,7 @@ This is a
 contains an Angular application at *root* level and also an Express application
 under `/server`. You will be deploying this application to AWS.
 
-## The goa
+## The goal
 
 You will deploy this application as a container onto the AWS infrastructure you
 created using Terraform. The `/server` directory includes a Dockerfile which you
